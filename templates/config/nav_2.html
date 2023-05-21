@@ -1,0 +1,64 @@
+   <!--Navbar-->
+    <nav class="navbar navbar-expand-lg navbar-info bg-info">
+
+        <div class="container">
+            <a class="navbar-brand text-white" href="{% url 'dashb-index' %}">DIMA Inventory</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-target="#btn"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="bx bx-menu"></i>
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="btn">
+                <ul class="navbar-nav">
+                    <li class=" nav-item  bg-primary p-1">
+                        <a href="{% url 'dashb-index' %}" class="navbar-brand text-white mx-3 fs-5">Global</a>
+                    </li>
+                    <li class=" nav-item">
+                        <a href="#" class="navbar-brand text-white mx-3 fs-5">S_Sport</a>
+                    </li>
+                     <li class=" nav-item">
+                        <a href="#" class="navbar-brand text-white mx-3 fs-5">S_Server</a>
+                    </li>
+                     <li class=" nav-item">
+                        <a href="#" class="navbar-brand text-white mx-3 fs-5">C_Transit</a>
+                    </li>
+                     <li class=" nav-item">
+                        <a href="#" class="navbar-brand text-white mx-3 fs-5">S_kousseri</a>
+                    </li>
+                     <li class=" nav-item">
+                        <a href="#" class="navbar-brand text-white mx-3 fs-5">S_AIRD</a>
+                    </li>
+                </ul>
+            </div>
+            {% if user.is_authenticated %}
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link text-white" href="{% url 'dashb-index' %}">Dashboard<span
+                                class="sr-only">(current)</span></a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link text-white" href="#">Welcome {{ user.username }} <span
+                                class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{% url 'user-logout' %}">Logout</a>
+                    </li>
+                </ul>
+                {% else %}
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link text-white" href="{% url 'user-register' %}">Register <span
+                                class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{% url 'user-login' %}">Login</a>
+                    </li>
+                </ul>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+    <!--End Navbar-->

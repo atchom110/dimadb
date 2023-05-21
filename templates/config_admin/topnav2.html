@@ -1,0 +1,71 @@
+    <!--Topside-->
+    <div class="container">
+        <div class="row mt-2">
+
+            <div class="col-md-12">
+                <div class="card">
+                  <div class="card-header bg-info text-white">
+                        Statistics des inventaires
+                    </div>
+
+                    <div class="card-body">
+                        <div class="row">
+                             <div class="col-md-2">
+                                <a class="text-decoration-none text-dark" href="{% url 'dashb-index_admin' %}">
+
+                                    <div class="card my-card shadow text-center p-3">
+                                        <h4>DECLASSE<i class="fas fa-users"></i></h4>
+
+                                        <h3>{{ count_prod }}</h3>
+
+
+
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-md-2">
+                                <a class="text-decoration-none text-dark" href="{% url 'dashb-index_admin' %}">
+
+                                    <div class="card my-card shadow text-center p-3">
+                                        <h4>PRODUCT <i class="fas fa-users"></i></h4>
+
+                                        <h3>{{ count_prod }}</h3>
+
+
+
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-md-3">
+                                <a class="text-decoration-none text-dark" href="{% url 'dashb-high_tech_admin' %}">
+                                    <div class="card my-card shadow text-center p-3">
+                                        <h4>SMARTPHONE <i class="fas fa-users"></i></h4>
+                                        <h3>{{ phone }}</h3>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-md-2">
+                                <a class="text-decoration-none text-dark" href="{% url 'dashb-laptop_admin' %}">
+                                    <div class="card my-card shadow text-center p-3">
+                                        <h4>LAPTOP <i class="fas fa-box"></i></h4>
+                                        <h3>{{ count_lap }}</h3>
+                                    </div>
+                                </a>
+                            </div>
+                             <div class="col-md-3">
+                                <a class="text-decoration-none text-dark" href="{% url 'dashb-high_tech_admin' %}">
+                                    <div class="card my-card shadow text-center p-3">
+                                        <h4>TABLETTE<i class="fas fa-box"></i></h4>
+                                        <h3>{{ tablette }}</h3>
+                                    </div>
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--End Topside-->
