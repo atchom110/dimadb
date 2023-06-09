@@ -25,6 +25,7 @@ SECRET_KEY = 'django-insecure-j$ngvgvs+pm)wv=4_c@2%%9)@%16fsdp8^+=5h7!3z-@=n-d%)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+
 ALLOWED_HOSTS = []
 
 
@@ -52,6 +53,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_auto_logout.middleware.auto_logout',
 ]
 
 ROOT_URLCONF = 'dimadb2023.urls'
@@ -67,6 +69,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django_auto_logout.context_processors.auto_logout_client',
             ],
         },
     },
@@ -121,17 +124,19 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = '/static/'
-
-
-STATTICFILES_DIRS = [
-    BASE_DIR / "static"
+STATICFILES_DIRS = [
+    BASE_DIR,"static"
 ]
-STATIC_ROOT = (BASE_DIR/"asert/")
+#STATIC_ROOT = (BASE_DIR/"asert/")
 
 LOGIN_REDIRECT_URL = 'dashb-index_admin'
 
 LOGIN_URL = 'user-login'
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+SESSION_SAVE_EVERY_REQUEST = True
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
+AUTO_LOGOUT = {'IDLE_TIME': 3600, 'REDIRECT_TO_LOGIN_IMMEDIATELY': True,
+         'MESSAGE': 'The session has expired. Please login again to continue.',}
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

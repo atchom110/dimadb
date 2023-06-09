@@ -1,0 +1,325 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+      <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+       <!--Custome CSS-->
+    <link rel="stylesheet" href="{% static '/style.css' %}">
+      <link href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css" rel="stylesheet">
+
+    <title>{% block title %}{% endblock %}</title>
+
+  <style>
+      :root {
+  --main-bg-color: #009d63;
+  --main-text-color: #009d63;
+  --second-text-color: #bbbec5;
+  --second-bg-color: #c1efde;
+}
+
+.primary-text {
+  color: var(--main-text-color);
+}
+.second-text {
+  color: var(--second-text-color);
+}
+.primary-bg {
+  background-color: var(--main-bg-color);
+}
+.secondary-bg {
+  background-color: var(--second-bg-color);
+}
+.rounded-full {
+  border-radius: 100%;
+}
+#wrapper {
+  overflow-x: hidden;
+  background-image: linear-gradient(
+    to right,
+    #baf3d7,
+    #c2f5de,
+    #cbf7e4,
+    #d4f8ea,
+    #ddfaef
+  );
+}
+#sidebar-wrapper {
+  min-height: 100vh;
+  margin-left: -15rem;
+  -webkit-transition: margin 0.25s ease-out;
+  -moz-transition: margin 0.25s ease-out;
+  -o-transition: margin 0.25s ease-out;
+  transition: margin 0.25s ease-out;
+}
+#sidebar-wrapper .sidebar-heading {
+  padding: 0.875rem 1.25rem;
+  font-size: 1.2rem;
+}
+#sidebar-wrapper .list-group {
+  width: 15rem;
+}
+
+#page-content-wrapper {
+  min-width: 100vw;
+  /*background-color: yellow; */
+}
+
+#wrapper.toggled #sidebar-wrapper {
+  margin-left: 0;
+}
+/* debut glissade du toggle */
+#menu-toggle {
+  cursor: pointer;
+}
+/*  fin glissade du toggle */
+
+.list-group-item {
+  border: none;
+  padding: 20px 30px;
+}
+.list-group-item.active {
+  background-color: transparent; /* permet activation du dashboard en vert */
+  color: var(--main-text-color);
+  font-weight: bold;
+  border: none;
+}
+@media (min-width: 768px) {  /* permet de figer en static le menu deroulant */
+  #sidebar-wrapper {
+    margin-left: 0;
+  }
+
+#page-content-wrapper {
+    min-width: 0;
+    width: 100%;
+
+
+  }
+
+
+  /* les etapes ci-dessus sont mieux */
+  #wrapper.toggled #sidebar-wrapper {
+    margin-left: -15rem;
+  }
+  }
+
+  </style>
+
+  </head>
+  <body>
+
+    {% block content %}
+
+<div class="d-flex" id="wrapper">
+        <!-- Sidebar -->
+        <div class="bg-white" id="sidebar-wrapper">
+          <div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold text-uppercase border-bottom"><i
+                    class="fas fa-home me-2"></i>DIMA STOCK</div>
+            <div class="list-group list-group-flush my-1">
+               <a href="#" class="list-group-item list-group-item-action bg-transparent second-text active"><i
+                        class="fas fa-tachometer-alt me-2"></i>Dashboard</a>
+                <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                        class="fas fa-project-diagram me-2"></i>GLOBAL DB</a>
+                <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                        class="fas fa-warehouse me-2"></i>SALLE SPORT</a>
+                <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                        class="fas fa-server me-2"></i>SALLE SERVEUR</a>
+                <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                        class="fas fa-warehouse me-2"></i>CENTRE TRANSIT</a>
+                <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                        class="fas fa-building me-2 "></i>BUREAU KOUSSERI</a>
+                <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                        class="fas fa-building me-2"></i>BUREAU AIRD</a>
+                <a href="{% url 'dashb-sortieMat_admin' %}" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                        class="fas fa-toolbox me-2"></i>SORTIE MAT</a>
+                <a href="{% url 'user-logout' %}" class="list-group-item list-group-item-action bg-transparent text-danger fw-bold"><i
+                        class="fas fa-power-off me-2"></i>Logout</a>
+            </div>
+        </div>
+        <!-- /#sidebar-wrapper -->
+     <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <nav class="navbar navbar-expand-lg navbar-light  py-4 px-4 bg bg-white w-100">
+                <div class="d-flex align-items-center ">
+                    <i class="fas fa-align-left primary-text fs-4 me-3" id="menu-toggle"></i>
+                    <h2 class="fs-2 m-0">Dashboard</h2>
+                </div>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    {% if user.is_authenticated %}
+                    <ul class="navbar-nav ms-auto mb-1 mb-lg-0">
+                        <li class="nav-item ">
+                            <a class="nav-link fs-4 m-0" href="#" >
+                                Accueil Dashboard
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <form class="form-inline my-2 my-lg-0" action="{% url 'dashb-search_phoneAd' %}">
+                                   <input class="navbar-left" name="query" id="navBarSearchForm" type="search" placeholder="Phone Imei" aria-label="Search">
+                                   <button class="btn btn-outline-success" type="submit">Search</button>
+                               </form>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="fas fa-user me-2">{{ user.username }}</i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                        <a class="nav-link text-white" href="{% url 'user-logout' %}">Logout</a>
+                    </li>
+                    </ul>
+                    {% else %}
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link second-text fw-bold" href="{% url 'user-login' %}">
+                                <i class="fas fa-user me-2"></i>Login
+                            </a>
+                        </li>
+                    </ul>
+                  {% endif %}
+                </div>
+
+            </nav>
+
+
+            {% include 'config_admin/topnav.html' %}
+
+
+{% load crispy_forms_tags %}
+<!--Table-->
+    <div class="container">
+        <div class="row my-4">
+            <div class="col-md-4">
+                <div class="border bg-info p-3">
+                    <h4>Add New PHONE</h4>
+                    <hr class="bg-white">
+                    <hr>
+                    <form method="POST">
+                        {% csrf_token %}
+                       {{ form|crispy }}
+                        <input class="btn btn-success btn-block" type="submit" value="Add Phone">
+
+                    </form>
+                </div>
+            </div>
+             {% if phones %}
+                      <div class="col-md-8">
+                      <table class="table bg-white">
+                    <thead class="bg-info">
+                        <tr class="text-white">
+                            <th scope="col" width="50">#</th>
+                            <th scope="col">marque</th>
+                            <th scope="col">Num Serie</th>
+                            <th scope="col">Imei</th>
+                             <th scope="col">Quantity</th>
+                             <th scope="col">Emplacement</th>
+                            <th scope="col">Etat</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                       {% for p in phones %}
+                        <tr>
+                            <th scope="row">{{ p.id }}</th>
+                            <td>{{ p.marque }}</td>
+                            <td>{{ p.num_serie }}</td>
+                            <td>{{ p.imei }}</td>
+                            <td>{{ p.quantity }}</td>
+                            <td>{{ p.emplacement }}</td>
+                            <td>
+                                <a class="btn btn-info btn-sm" href="">BON</a>
+                            </td>
+
+                        </tr>
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+                      {% else %}
+             <div class="col-md-8">
+                <table class="table bg-white">
+                    <thead class="bg-info">
+                        <tr class="text-white">
+                            <th scope="col">#</th>
+                            <th scope="col">marque</th>
+                            <th scope="col">Num Serie</th>
+                            <th scope="col">Imei</th>
+                             <th scope="col">Quantity</th>
+                             <th scope="col">Emplacement</th>
+                             <th scope="col">Update</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                       {% for p in page.object_list %}
+                        <tr>
+                            <th scope="row">{{ p.id }}</th>
+                            <td>{{ p.marque }}</td>
+                            <td>{{ p.num_serie }}</td>
+                            <td>{{ p.imei }}</td>
+                            <td>{{ p.quantity }}</td>
+                            <td>{{ p.emplacement }}</td>
+                            <td>
+                                <a class="btn btn-info btn-sm" href="{% url 'dashb-phone_update' p.id %}">EDIT</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        {% endif %}
+                    </tbody>
+                </table>
+                <div class="container">
+                    <div class="row my-5">
+
+                        <div class="col-md-4 offset-md-3">
+                             <p>page:{{ page.number}}/{{ page.paginator.num_pages}}</p>
+                            <nav aria-label="...">
+                                <ul class="pagination">
+                                   <li class="page-item">
+                                       {% if page.has_previous %}
+                                       <a class="page-link" href="{% url 'dashb-phone_admin' %}?page={{ page.previous_page_number }}">Previous</a>
+                                       {% endif %}
+                                   </li>
+                                   {% for num_page in page.paginator.page_range %}
+                                    <br />
+                                    {% if page.number == num_page %}
+                                    <li class="page-item active" aria-current="page">
+                                       <a class="page-link" href="{% url 'dashb-phone_admin' %}?page={{ num_page }}">{{ num_page }}</a>
+                                    </li>
+                                    {% else %}
+                                    <li class="page-item" aria-current="page">
+                                       <a class="page-link" href="{% url 'dashb-phone_admin' %}?page={{ num_page }}">{{ num_page }}</a>
+                                    </li>
+                                    {% endif %}
+                                    <br />
+                                    {% endfor %}
+
+                                   <li class="page-item">
+                                       {% if page.has_next %}
+                                      <a class="page-link" href="{% url 'dashb-phone_admin' %}?page={{ page.next_page_number }}">Next</a>
+                                       {% endif %}
+                                   </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <!--End Table-->
+</div>
+
+{% endblock %}

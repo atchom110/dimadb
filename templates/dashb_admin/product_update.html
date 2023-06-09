@@ -116,7 +116,7 @@
 <div class="d-flex" id="wrapper">
         <!-- Sidebar -->
         <div class="bg-white" id="sidebar-wrapper">
-            <div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold text-uppercase border-bottom"><i
+        <div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold text-uppercase border-bottom"><i
                     class="fas fa-home me-2"></i>DIMA STOCK</div>
             <div class="list-group list-group-flush my-1">
                <a href="#" class="list-group-item list-group-item-action bg-transparent second-text active"><i
@@ -124,16 +124,17 @@
                 <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
                         class="fas fa-project-diagram me-2"></i>GLOBAL DB</a>
                 <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                        class="fas fa-chart-line me-2"></i>SALLE SPORT</a>
+                        class="fas fa-warehouse me-2"></i>SALLE SPORT</a>
                 <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                        class="fas fa-paperclip me-2"></i>SALLE SERVEUR</a>
+                        class="fas fa-server me-2"></i>SALLE SERVEUR</a>
                 <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                        class="fas fa-shopping-cart me-2"></i>CENTRE TRANSIT</a>
+                        class="fas fa-warehouse me-2"></i>CENTRE TRANSIT</a>
                 <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                        class="fas fa-gift me-2 "></i>BUREAU KOUSSERI</a>
+                        class="fas fa-building me-2 "></i>BUREAU KOUSSERI</a>
                 <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                        class="fas fa-map-marker-alt me-2"></i>BUREAU AIRD</a>
-
+                        class="fas fa-building me-2"></i>BUREAU AIRD</a>
+                <a href="{% url 'dashb-sortieMat_admin' %}" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                        class="fas fa-toolbox me-2"></i>SORTIE MAT</a>
                 <a href="{% url 'user-logout' %}" class="list-group-item list-group-item-action bg-transparent text-danger fw-bold"><i
                         class="fas fa-power-off me-2"></i>Logout</a>
             </div>
@@ -216,7 +217,8 @@
                             <th scope="col">#</th>
                             <th scope="col">Designation</th>
                             <th scope="col">Category</th>
-                            <th scope="col">Quantity</th>
+                            <th scope="col">Qte Stock</th>
+                            <th scope="col">Qte Sortie</th>
                              <th scope="col">Unite</th>
                              <th scope="col">Emplacement</th>
                             <th scope="col">Etat</th>
@@ -229,6 +231,7 @@
                             <td>{{ p.designation }}</td>
                             <td>{{ p.category }}</td>
                             <td>{{ p.quantity }}</td>
+                             <td>{{ p.qte_sortie }}</td>
                             <td>{{ p.unite }}</td>
                              <td>{{ p.emplacement }}</td>
                             <td>

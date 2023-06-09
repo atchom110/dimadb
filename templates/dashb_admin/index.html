@@ -14,7 +14,8 @@
     <title>{% block title %}{% endblock %}</title>
 
   <style>
-      :root {
+
+   :root {
   --main-bg-color: #009d63;
   --main-text-color: #009d63;
   --second-text-color: #bbbec5;
@@ -124,16 +125,17 @@
                 <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
                         class="fas fa-project-diagram me-2"></i>GLOBAL DB</a>
                 <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                        class="fas fa-chart-line me-2"></i>SALLE SPORT</a>
+                        class="fas fa-warehouse me-2"></i>SALLE SPORT</a>
                 <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                        class="fas fa-paperclip me-2"></i>SALLE SERVEUR</a>
+                        class="fas fa-server me-2"></i>SALLE SERVEUR</a>
                 <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                        class="fas fa-shopping-cart me-2"></i>CENTRE TRANSIT</a>
+                        class="fas fa-warehouse me-2"></i>CENTRE TRANSIT</a>
                 <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                        class="fas fa-gift me-2 "></i>BUREAU KOUSSERI</a>
+                        class="fas fa-building me-2 "></i>BUREAU KOUSSERI</a>
                 <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                        class="fas fa-map-marker-alt me-2"></i>BUREAU AIRD</a>
-
+                        class="fas fa-building me-2"></i>BUREAU AIRD</a>
+                <a href="{% url 'dashb-sortieMat_admin' %}" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                        class="fas fa-toolbox me-2"></i>SORTIE MAT</a>
                 <a href="{% url 'user-logout' %}" class="list-group-item list-group-item-action bg-transparent text-danger fw-bold"><i
                         class="fas fa-power-off me-2"></i>Logout</a>
             </div>
@@ -163,6 +165,10 @@
                         </li>
                     </ul>
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                               <form class="form-inline my-2 my-lg-0" action="{% url 'dashb-search_prodAd' %}">
+                                   <input class="navbar-left" name="query" id="navBarSearchForm" type="search" placeholder="Designation " aria-label="Search">
+                                   <button class="btn btn-outline-success" type="submit">Search</button>
+                               </form>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle second-text text-black fw-bold"
                                href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -208,6 +214,46 @@
                     </form>
                 </div>
             </div>
+             {% if products %}
+            <div class="col-md-8">
+                      <table class="table bg-white">
+                    <thead class="bg-info">
+                        <tr class="text-white">
+                            <th scope="col" width="50">#</th>
+                            <th scope="col">Designation</th>
+                            <th scope="col">Category</th>
+                            <th scope="col">Qte Stock</th>
+                            <th scope="col">Qte Sortie</th>
+                             <th scope="col">Unite</th>
+                             <th scope="col">Emplacement</th>
+                            <th scope="col">Update</th>
+                            <th scope="col">Del</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                       {% for p in products %}
+                        <tr>
+                            <th scope="row">{{ p.id }}</th>
+                            <td>{{ p.designation }}</td>
+                            <td>{{ p.category }}</td>
+                            <td>{{ p.quantity }}</td>
+                             <td>{{ p.qte_sortie }}</td>
+                            <td>{{ p.unite }}</td>
+                            <td>{{ p.emplacement }}</td>
+                             <td>
+                                <a class="btn btn-info btn-sm" href="{% url 'dashb-product_update' p.id %}">EDIT</a>
+                            </td>
+                              <td>
+                                <a class="btn btn-danger btn-sm" href="{% url 'dashb-index_delete' p.id %}">DEL</a>
+                            </td>
+
+                        </tr>
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+                      {% else %}
              <div class="col-md-8">
                 <table class="table bg-white">
                     <thead class="bg-info">
@@ -215,11 +261,13 @@
                             <th scope="col">#</th>
                             <th scope="col">Designation</th>
                             <th scope="col">Category</th>
-                            <th scope="col">Quantity</th>
+                            <th scope="col">Qte Stock</th>
+                            <th scope="col">Qte Sortie</th>
                              <th scope="col">Unite</th>
                              <th scope="col">Emplacement</th>
                             <th scope="col">Etat</th>
                             <th scope="col">Update</th>
+                            <th scope="col">Del</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -229,6 +277,7 @@
                             <td>{{ p.designation }}</td>
                             <td>{{ p.category }}</td>
                             <td>{{ p.quantity }}</td>
+                            <td>{{ p.qte_sortie }}</td>
                             <td>{{ p.unite }}</td>
                              <td>{{ p.emplacement }}</td>
                             <td>
@@ -237,9 +286,13 @@
                             <td>
                                 <a class="btn btn-info btn-sm" href="{% url 'dashb-product_update' p.id %}">EDIT</a>
                             </td>
+                             <td>
+                                <a class="btn btn-danger btn-sm" href="{% url 'dashb-index_delete' p.id %}">DEL</a>
+                            </td>
 
                         </tr>
                         {% endfor %}
+                     {% endif %}
                     </tbody>
                 </table>
                 <div class="container">

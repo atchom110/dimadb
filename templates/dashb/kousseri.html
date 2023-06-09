@@ -116,32 +116,34 @@
 <div class="d-flex" id="wrapper">
         <!-- Sidebar -->
         <div class="bg-white" id="sidebar-wrapper">
-            <div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold text-uppercase border-bottom"><i
+             <div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold text-uppercase border-bottom"><i
                     class="fas fa-home me-2"></i>DIMA STOCK</div>
             <div class="list-group list-group-flush my-1">
                 <a class="list-group-item list-group-item-action bg-transparent second-text active"><i
                         class="fas fa-tachometer-alt me-2"></i>Dashboard</a>
-                <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                <a href="{% url 'dashb-index' %}" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
                         class="fas fa-project-diagram me-2"></i>GLOBAL DB</a>
-                <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                        class="fas fa-chart-line me-2"></i>SALLE SPORT</a>
-                <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                        class="fas fa-paperclip me-2"></i>SALLE SERVEUR</a>
-                <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                        class="fas fa-shopping-cart me-2"></i>CENTRE TRANSIT</a>
-                <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                        class="fas fa-gift me-2 "></i>BUREAU KOUSSERI</a>
-                <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                        class="fas fa-map-marker-alt me-2"></i>BUREAU AIRD</a>
-                <a href="#" class="list-group-item list-group-item-action bg-transparent text-danger fw-bold"><i
-                        class="fas fa-power-off me-2"></i>Logout</a>
+                <a href="{% url 'dashb-sport' %}" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                        class="fas fa-warehouse me-2"></i>SALLE SPORT</a>
+                <a href="{% url 'dashb-serveur' %}" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                        class="fas fa-server me-2"></i>SALLE SERVEUR</a>
+                <a href="{% url 'dashb-transit' %}" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                        class="fas fa-warehouse me-2"></i>CENTRE TRANSIT</a>
+                <a href="{% url 'dashb-kousseri' %}" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                        class="fas fa-building me-2 "></i>BUREAU KOUSSERI</a>
+                <a href="{% url 'dashb-aird' %}" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                        class="fas fa-building me-2"></i>BUREAU AIRD</a>
+                 <a href="{% url 'dashb-sortieMat_index' %}" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                        class="fas fa-toolbox me-2"></i>SORTIE MAT</a>
+                <a href="{% url 'user-login' %}" class="list-group-item list-group-item-action bg-transparent text-danger fw-bold"><i
+                        class="fas fa-user me-2"></i>Login</a>
             </div>
         </div>
         <!-- /#sidebar-wrapper -->
      <!-- Page Content -->
         <div id="page-content-wrapper">
-            <nav class="navbar navbar-expand-lg navbar-light bg-transparent py-4 px-4">
-                <div class="d-flex align-items-center">
+            <nav class="navbar navbar-expand-lg navbar-light  py-4 px-4 bg bg-white w-100">
+                <div class="d-flex align-items-center ">
                     <i class="fas fa-align-left primary-text fs-4 me-3" id="menu-toggle"></i>
                     <h2 class="fs-2 m-0">Dashboard</h2>
                 </div>
@@ -153,20 +155,38 @@
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle second-text fw-bold" href="#" id="navbarDropdown"
-                                role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fas fa-user me-2"></i>John Doe
+                    {% if user.is_authenticated %}
+                    <ul class="navbar-nav ms-auto mb-1 mb-lg-0">
+                        <li class="nav-item ">
+                            <a class="nav-link fs-4 m-0" href="#" >
+                                Accueil Dashboard
                             </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Profile</a></li>
-                                <li><a class="dropdown-item" href="#">Settings</a></li>
-                                <li><a class="dropdown-item" href="#">Logout</a></li>
-                            </ul>
                         </li>
                     </ul>
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="fas fa-user me-2">{{ user.username }}</i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                        <a class="nav-link text-white" href="{% url 'user-logout' %}">Logout</a>
+                    </li>
+                    </ul>
+                    {% else %}
+
+
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link second-text fw-bold" href="{% url 'user-login' %}">
+                                <i class="fas fa-user me-2"></i>Login
+                            </a>
+                        </li>
+                    </ul>
+                  {% endif %}
                 </div>
+
             </nav>
 
             {% include 'config/topnav.html' %}
@@ -215,23 +235,23 @@
                     <div class="row my-5">
 
                         <div class="col-md-4 offset-md-3">
-                             <p>page:{{ page.number}}/{{ page.paginator.num_pages}}</p>
+
                             <nav aria-label="...">
                                 <ul class="pagination">
                                    <li class="page-item">
                                        {% if page.has_previous %}
-                                       <a class="page-link" href="{% url 'dashb-index' %}?page={{ page.previous_page_number }}">Previous</a>
+                                       <a class="page-link" href="{% url 'dashb-kousseri' %}?page={{ page.previous_page_number }}">Previous</a>
                                        {% endif %}
                                    </li>
                                    {% for num_page in page.paginator.page_range %}
                                     <br />
                                     {% if page.number == num_page %}
                                     <li class="page-item active" aria-current="page">
-                                       <a class="page-link" href="{% url 'dashb-index' %}?page={{ num_page }}">{{ num_page }}</a>
+                                       <a class="page-link" href="{% url 'dashb-kousseri' %}?page={{ num_page }}">{{ num_page }}</a>
                                     </li>
                                     {% else %}
                                     <li class="page-item" aria-current="page">
-                                       <a class="page-link" href="{% url 'dashb-index' %}?page={{ num_page }}">{{ num_page }}</a>
+                                       <a class="page-link" href="{% url 'dashb-kousseri' %}?page={{ num_page }}">{{ num_page }}</a>
                                     </li>
                                     {% endif %}
                                     <br />
@@ -239,7 +259,7 @@
 
                                    <li class="page-item">
                                        {% if page.has_next %}
-                                      <a class="page-link" href="{% url 'dashb-index' %}?page={{ page.next_page_number }}">Next</a>
+                                      <a class="page-link" href="{% url 'dashb-kousseri' %}?page={{ page.next_page_number }}">Next</a>
                                        {% endif %}
                                    </li>
                                 </ul>
